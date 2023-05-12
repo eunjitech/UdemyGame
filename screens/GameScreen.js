@@ -5,7 +5,7 @@ import theme from "../colors";
 export default function GameScreen() {
   return (
     <View>
-      <Text></Text>
+      <Text>Game Screen</Text>
     </View>
   );
 }

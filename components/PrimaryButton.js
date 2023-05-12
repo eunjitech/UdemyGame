@@ -2,14 +2,11 @@ import React from "react";
 import { StyleSheet, Text, View, Pressable } from "react-native";
 import theme from "../colors";
 
-export default function PrimaryButton({ children }) {
-  function pressHandler() {
-    console.log("Pressed!");
-  }
+export default function PrimaryButton({ children, onPress }) {
   return (
     <View style={styles.buttonOuterContainer}>
       <Pressable
-        onPress={pressHandler}
+        onPress={onPress}
         android_ripple={{ color: theme.lightBlueColor }}
         style={({ pressed }) =>
           pressed

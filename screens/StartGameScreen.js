@@ -1,22 +1,49 @@
 import React from "react";
-import { StyleSheet, Text, View, TextInput } from "react-native";
+import { StyleSheet, Text, View, TextInput, Alert } from "react-native";
 import PrimaryButton from "../components/PrimaryButton";
 import theme from "../colors";
 
-export default function StartGameScreen() {
+export default function StartGameScreen({ onPickNumber }) {
+  const [enteredNumber, setEnteredNumber] = React.useState("");
+
+  function numberInputHandler(text) {
+    setEnteredNumber(text);
+  }
+
+  function resetInputHandler() {
+    setEnteredNumber("");
+  }
+
+  function confirmInputHandler() {
+    //유효성 검사
+    const chosenNumber = parseInt(enteredNumber);
+    if (isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99) {
+      Alert.alert(
+        "유효하지 않은 값",
+        "1부터 99의 범위 안의 숫자를 입력해주세요.",
+        [{ text: "OK", style: "destructive", onPress: resetInputHandler }]
+      );
+      return;
+    }
+
+    onPickNumber(chosenNumber);
+  }
+
   return (
     <View style={styles.inputContainer}>
       <TextInput
         style={styles.numberInput}
         maxLength={2}
         keyboardType="number-pad"
+        onChangeText={numberInputHandler}
+        value={enteredNumber}
       />
       <View style={styles.buttonsContainer}>
         <View style={styles.buttonContainer}>
-          <PrimaryButton>Reset</PrimaryButton>
+          <PrimaryButton onPress={resetInputHandler}>Reset</PrimaryButton>
         </View>
         <View style={styles.buttonContainer}>
-          <PrimaryButton>Confirm</PrimaryButton>
+          <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>
         </View>
       </View>
     </View>
