@@ -48,6 +48,7 @@ export default function GameScreen({ userNumber, onGameOver }) {
       maxBoundary,
       currentGuess
     );
+    console.log(minBoundary, maxBoundary, currentGuess);
     setCurrentGuess(newRndNumber);
   }
 
