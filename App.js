@@ -4,7 +4,7 @@ import { StyleSheet, View, ImageBackground, SafeAreaView } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import StartGameScreen from "./screens/StartGameScreen";
 import GameScreen from "./screens/GameScreen";
-import theme from "./colors";
+import theme from "./constants/colors";
 import image from "./assets/jjangoo.jpeg";
 
 export default function App() {
@@ -17,7 +17,7 @@ export default function App() {
   let screen = <StartGameScreen onPickNumber={pickedNumberHandler} />;
 
   if (userNumber) {
-    screen = <GameScreen chosenNumber={userNumber} />;
+    screen = <GameScreen userNumber={userNumber} />;
   }
 
   return (
