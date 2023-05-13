@@ -5,7 +5,7 @@ import theme from "../constants/colors";
 export default function GameOverScreen() {
   return (
     <View>
-      <Text></Text>
+      <Text>GameOver!</Text>
     </View>
   );
 }
