@@ -11,8 +11,13 @@ import {
 } from "react-native";
 import theme from "../constants/colors";
 import bgImage from "../assets/gameOverBg.jpeg";
+import PrimaryButton from "../components/ui/PrimaryButton";
 
-export default function GameOverScreen({ userNumber, setGameIsOver }) {
+export default function GameOverScreen({
+  roundsNumber,
+  userNumber,
+  onStartNewGame,
+}) {
   return (
     <View style={{ flex: 1 }}>
       <Modal animationType="slide">
@@ -60,14 +65,20 @@ export default function GameOverScreen({ userNumber, setGameIsOver }) {
                 </Text>
                 <Text
                   style={{
-                    fontFamily: "open-sans",
+                    fontFamily: "open-sans-bold",
+                    marginBottom: 24,
                   }}
                 >
-                  00번의 시도 끝에 성공!
+                  Your phone needed{" "}
+                  <Text style={styles.highlight}>{roundsNumber}</Text> rounds to
+                  guess the number
+                  <Text style={styles.highlight}>{userNumber}</Text>
                 </Text>
               </View>
-              <Button title="Restart" onPress={() => setGameIsOver(false)} />
             </View>
+            <PrimaryButton title="Restart" onPress={onStartNewGame}>
+              Start New Game
+            </PrimaryButton>
           </SafeAreaView>
         </ImageBackground>
       </Modal>
@@ -90,4 +101,6 @@ const styles = StyleSheet.create({
     height: 200,
     resizeMode: "contain",
   },
+
+  highlight: { color: "red" },
 });

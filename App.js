@@ -13,6 +13,7 @@ import image from "./assets/jjangoo.jpeg";
 export default function App() {
   const [userNumber, setUserNumber] = React.useState();
   const [gameIsOver, setGameIsOver] = React.useState(false);
+  const [guessRounds, setGuessRounds] = React.useState(0);
 
   const [fontsLoading] = useFonts({
     "open-sans": require("./assets/fonts/OpenSans-Regular.ttf"),
@@ -27,6 +28,11 @@ export default function App() {
     setUserNumber(pickedNumber);
   }
 
+  function startNewGameHandler() {
+    setUserNumber(null);
+    setGuessRounds(0);
+  }
+
   let screen = <StartGameScreen onPickNumber={pickedNumberHandler} />;
 
   if (userNumber) {
@@ -37,12 +43,17 @@ export default function App() {
 
   if (gameIsOver) {
     screen = (
-      <GameOverScreen userNumber={userNumber} setGameIsOver={setGameIsOver} />
+      <GameOverScreen
+        userNumber={userNumber}
+        onStartNewGame={startNewGameHandler}
+        roundsNumber={guessRounds}
+      />
     );
   }
 
-  function gameOverHandler() {
+  function gameOverHandler(numberOfRounds) {
     setGameIsOver(true);
+    setGuessRounds(numberOfRounds);
   }
 
   return (
