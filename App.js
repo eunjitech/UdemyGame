@@ -1,27 +1,39 @@
 import React from "react";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, View, ImageBackground, SafeAreaView } from "react-native";
+import { StyleSheet, ImageBackground, SafeAreaView } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { useFonts } from "expo-font";
-import AppLoading from "expo-app-loading";
+import * as SplashScreen from "expo-splash-screen";
+
 import StartGameScreen from "./screens/StartGameScreen";
 import GameScreen from "./screens/GameScreen";
 import GameOverScreen from "./screens/GameOverScreen";
 import theme from "./constants/colors";
 import image from "./assets/jjangoo.jpeg";
 
+SplashScreen.preventAutoHideAsync();
+
 export default function App() {
   const [userNumber, setUserNumber] = React.useState();
   const [gameIsOver, setGameIsOver] = React.useState(false);
   const [guessRounds, setGuessRounds] = React.useState(0);
 
-  const [fontsLoading] = useFonts({
+  const [fontsLoaded] = useFonts({
     "open-sans": require("./assets/fonts/OpenSans-Regular.ttf"),
     "open-sans-bold": require("./assets/fonts/OpenSans-Bold.ttf"),
   });
 
-  if (!fontsLoading) {
-    return <AppLoading />;
+  React.useEffect(() => {
+    async function hideSplashScreen() {
+      await SplashScreen.hideAsync();
+    }
+    if (fontsLoaded) {
+      hideSplashScreen();
+    }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return null;
   }
 
   function pickedNumberHandler(pickedNumber) {
@@ -58,6 +70,7 @@ export default function App() {
 
   return (
     <LinearGradient style={styles.appContainer} colors={["#FFD662", "#00539C"]}>
+      <StatusBar style="dark" />
       <ImageBackground
         source={image}
         resizeMode="cover"
