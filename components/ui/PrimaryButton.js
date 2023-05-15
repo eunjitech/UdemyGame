@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     color: theme.whiteColor,
     textAlign: "center",
     fontWeight: "bold",
-    // fontSize: 20,
+    fontSize: 20,
   },
   pressed: {
     opacity: 0.75,
