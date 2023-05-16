@@ -70,17 +70,22 @@ export default function App() {
   }
 
   return (
-    <LinearGradient style={styles.appContainer} colors={["#FFD662", "#00539C"]}>
-      <StatusBar style="dark" />
-      <ImageBackground
-        source={image}
-        resizeMode="cover"
-        imageStyle={{ opacity: 0.2 }}
-        style={{ flex: 1 }}
+    <>
+      <StatusBar style="dark" visible={true} />
+      <LinearGradient
+        style={styles.appContainer}
+        colors={["#FFD662", "#00539C"]}
       >
-        <SafeAreaView style={styles.rootScreen}>{screen}</SafeAreaView>
-      </ImageBackground>
-    </LinearGradient>
+        <ImageBackground
+          source={image}
+          resizeMode="cover"
+          imageStyle={{ opacity: 0.2 }}
+          style={{ flex: 1 }}
+        >
+          <SafeAreaView style={styles.rootScreen}>{screen}</SafeAreaView>
+        </ImageBackground>
+      </LinearGradient>
+    </>
   );
 }
 
