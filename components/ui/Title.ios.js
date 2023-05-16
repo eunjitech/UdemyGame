@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Platform } from "react-native";
 import theme from "../../constants/colors";
 
 export default function Title({ children }) {
@@ -12,7 +12,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: theme.blueColor,
     textAlign: "center",
-    borderWidth: 2,
     borderColor: theme.blueColor,
     padding: 12,
     maxWidth: "80%",
