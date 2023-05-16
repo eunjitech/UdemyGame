@@ -6,6 +6,7 @@ import {
   View,
   ScrollView,
   FlatList,
+  useWindowDimensions,
 } from "react-native";
 import theme from "../constants/colors";
 import Title from "../components/ui/Title";
@@ -33,6 +34,7 @@ export default function GameScreen({ userNumber, onGameOver }) {
   const initialGuess = generateRandomBetween(1, 100, userNumber);
   const [currentGuess, setCurrentGuess] = React.useState(initialGuess);
   const [guessRounds, setGuessRounds] = React.useState([initialGuess]);
+  const { width, height } = useWindowDimensions();
 
   React.useEffect(() => {
     if (currentGuess === userNumber) {
@@ -72,9 +74,8 @@ export default function GameScreen({ userNumber, onGameOver }) {
 
   const guessRoundsListLength = guessRounds.length;
 
-  return (
-    <View style={styles.screen}>
-      <Title>Opponent's Guess</Title>
+  let content = (
+    <>
       <NumberContainer>{currentGuess}</NumberContainer>
       <Card>
         <InstructionText style={styles.InstructionText}>
@@ -93,13 +94,34 @@ export default function GameScreen({ userNumber, onGameOver }) {
           </View>
         </View>
       </Card>
-      {/* <ScrollView contentContainerStyle={styles.guessContainer}>
-        {guessRounds.map((item) => (
-          <Text style={styles.guessItem} key={item}>
-            {item}
-          </Text>
-        ))}
-      </ScrollView> */}
+    </>
+  );
+
+  if (width > 500) {
+    content = (
+      <>
+        <View style={styles.buttonsContainerWide}>
+          <View style={styles.buttonContainer}>
+            <PrimaryButton onPress={() => nextGuessHandler("lower")}>
+              <Ionicons name="md-remove" size={24} color="#ffffff" />
+            </PrimaryButton>
+          </View>
+          <NumberContainer>{currentGuess}</NumberContainer>
+          <View style={styles.buttonContainer}>
+            <PrimaryButton onPress={() => nextGuessHandler("higher")}>
+              <Ionicons name="md-add" size={24} color="#ffffff" />
+            </PrimaryButton>
+          </View>
+        </View>
+      </>
+    );
+  }
+  const widthWide = width > 500 ? 50 : 16;
+
+  return (
+    <View style={[styles.screen, { padding: widthWide }]}>
+      <Title>Opponent's Guess</Title>
+      {content}
       <View style={styles.listContainer}>
         <FlatList
           data={guessRounds}
@@ -125,7 +147,8 @@ const styles = StyleSheet.create({
   InstructionText: { marginBottom: 12 },
   buttonsContainer: { flexDirection: "row" },
   buttonContainer: { flex: 1 },
-  listContainer: { flex: 1, padding: 16 },
+  listContainer: { flex: 1 },
+  buttonsContainerWide: { flexDirection: "row", alignItems: "center" },
   // guessContainer: { margin: 30, flexDirection: "row", flexWrap: "wrap" },
   // guessItem: {
   //   paddingVertical: 10,
