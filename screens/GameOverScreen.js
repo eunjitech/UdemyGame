@@ -8,6 +8,7 @@ import {
   SafeAreaView,
   Button,
   Image,
+  Dimensions,
 } from "react-native";
 import theme from "../constants/colors";
 import bgImage from "../assets/gameOverBg.jpeg";
@@ -23,7 +24,12 @@ export default function GameOverScreen({
       <Modal animationType="slide">
         <ImageBackground
           source={bgImage}
-          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            resizeMode: "cover",
+          }}
           imageStyle={{ opacity: 0.5 }}
         >
           <SafeAreaView
@@ -86,19 +92,21 @@ export default function GameOverScreen({
   );
 }
 
+const deviceWidth = Dimensions.get("window").width;
+
 const styles = StyleSheet.create({
   imageBox: {
-    borderRadius: 200,
-    width: 200,
-    height: 200,
+    borderRadius: deviceWidth < 380 ? 75 : 150,
+    width: deviceWidth < 380 ? 150 : 300,
+    height: deviceWidth < 380 ? 150 : 300,
     borderWidth: 3,
     borderColor: theme.blueColor,
     overflow: "hidden",
     margin: 36,
   },
   image: {
-    width: 200,
-    height: 200,
+    width: deviceWidth < 380 ? 150 : 300,
+    height: deviceWidth < 380 ? 150 : 300,
     resizeMode: "contain",
   },
 
